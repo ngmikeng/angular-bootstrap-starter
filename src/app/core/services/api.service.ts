@@ -20,10 +20,11 @@ export class ApiService {
       .pipe(catchError(this.formatErrors));
   }
 
-  put(path: string, params: HttpParams = new HttpParams(), finalizeHandler?: VoidFunction): Observable<any> {
+  put(path: string, bodyData: any, params: HttpParams = new HttpParams(), finalizeHandler?: VoidFunction): Observable<any> {
     return this.http.put(
       `${environment.api_url}${path}`,
-      params
+      bodyData,
+      { params }
     ).pipe(catchError(this.formatErrors))
     .pipe(finalize(() => {
       if (typeof finalizeHandler === 'function') {
@@ -32,10 +33,11 @@ export class ApiService {
     }));
   }
 
-  post(path: string, params: HttpParams = new HttpParams(), finalizeHandler?: VoidFunction): Observable<any> {
+  post(path: string, bodyData: any, params: HttpParams = new HttpParams(), finalizeHandler?: VoidFunction): Observable<any> {
     return this.http.post(
       `${environment.api_url}${path}`,
-      params
+      bodyData,
+      { params }
     ).pipe(catchError(this.formatErrors))
     .pipe(finalize(() => {
       if (typeof finalizeHandler === 'function') {
@@ -44,9 +46,10 @@ export class ApiService {
     }));
   }
 
-  delete(path: string, finalizeHandler?: VoidFunction): Observable<any> {
+  delete(path: string, params: HttpParams = new HttpParams(), finalizeHandler?: VoidFunction): Observable<any> {
     return this.http.delete(
-      `${environment.api_url}${path}`
+      `${environment.api_url}${path}`,
+      { params }
     ).pipe(catchError(this.formatErrors))
     .pipe(finalize(() => {
       if (typeof finalizeHandler === 'function') {
@@ -55,12 +58,12 @@ export class ApiService {
     }));
   }
 
-  postFile(path: string, params: FormData, httpOptions?, finalizeHandler?: VoidFunction): Observable<any> {
+  postFile(path: string, formData: FormData, httpOptions?, finalizeHandler?: VoidFunction): Observable<any> {
     const requestUrl = `${environment.api_url}${path}`;
 
     return this.http.post(
       requestUrl,
-      params,
+      formData,
       httpOptions
     ).pipe(catchError(this.formatErrors))
     .pipe(finalize(() => {
