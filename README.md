@@ -1,6 +1,6 @@
 # AngularBootstrapStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+Simple project starter using Angular 8, Bootstrap 4.
 
 ## Development server
 
